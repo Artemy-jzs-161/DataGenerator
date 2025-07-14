@@ -1,0 +1,11 @@
+Создать физлицо:
+curl -X POST http://localhost:8080/api/individuals
+
+Получить всех:
+curl http://localhost:8080/api/individuals
+
+Удалить:
+curl -X DELETE http://localhost:8080/api/individuals/1
+
+Физ лица (id, birth_day, created_at, first_name, last_name, middle_name, inn, snils)
+SELECT * FROM individuals;
