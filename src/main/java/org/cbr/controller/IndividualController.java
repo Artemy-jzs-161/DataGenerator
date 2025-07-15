@@ -2,7 +2,7 @@ package org.cbr.controller;
 
 
 import org.cbr.generator.IndividualGenerator;
-import org.cbr.model.Individual;
+import org.cbr.model.IndividualModel;
 import org.cbr.repository.IndividualRepository;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,20 +24,20 @@ public class IndividualController {
 
     // 1. Создать новое физлицо
     @PostMapping
-    public Individual createIndividual() {
-        Individual individual = generator.generate();
-        return repository.save(individual);
+    public IndividualModel createIndividual() {
+        IndividualModel individualModel = generator.generate();
+        return repository.save(individualModel);
     }
 
     // 2. Получить всех (без пагинации)
     @GetMapping
-    public List<Individual> getAllIndividuals() {
+    public List<IndividualModel> getAllIndividuals() {
         return repository.findAll();
     }
 
     // 3. Получить по ID
     @GetMapping("/{id}")
-    public Individual getById(@PathVariable Long id) {
+    public IndividualModel getById(@PathVariable Long id) {
         return repository
                 .findById(id)
                 .orElse(null);

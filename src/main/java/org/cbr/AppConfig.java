@@ -1,7 +1,7 @@
 package org.cbr;
 
 import org.cbr.generator.*;
-import org.cbr.model.Individual;
+import org.cbr.model.IndividualModel;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -18,7 +18,7 @@ public class AppConfig {
         return args -> {
             System.out.println("Генерация и сохранение данных...");
             for (int i = 0; i < 5; i++) {
-                Individual person = generator.generateAndSave();
+                IndividualModel person = generator.generateAndSave();
                 System.out.println("Сгенерирован: "
                         + person.getLastName() + " "
                         + person.getFirstName());

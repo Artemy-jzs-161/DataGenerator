@@ -1,25 +1,25 @@
 package org.cbr.generator;
 
-import org.cbr.model.Individual;
+import org.cbr.model.IndividualModel;
 import org.cbr.repository.IndividualRepository;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 @Component
 public class IndividualGenerator {
-    private final NameGenerator nameGenerator;
+    private final IndividualNameGenerator individualNameGenerator;
     private final DateGenerator dateGenerator;
     private final SnilsGenerator snilsGenerator;
     private final InnGenerator innGenerator;
     private final IndividualRepository repository;
 
     // Конструктор с зависимостями
-    public IndividualGenerator(NameGenerator nameGenerator,
+    public IndividualGenerator(IndividualNameGenerator individualNameGenerator,
                                DateGenerator dateGenerator,
                                SnilsGenerator snilsGenerator,
                                InnGenerator innGenerator,
                                IndividualRepository repository) {
-        this.nameGenerator = nameGenerator;
+        this.individualNameGenerator = individualNameGenerator;
         this.dateGenerator = dateGenerator;
         this.snilsGenerator = snilsGenerator;
         this.innGenerator = innGenerator;
@@ -27,25 +27,25 @@ public class IndividualGenerator {
     }
 
     @Transactional
-    public Individual generateAndSave() {
-        Individual individual;
+    public IndividualModel generateAndSave() {
+        IndividualModel individualModel;
         do {
-            individual = generate();
-        } while (repository.existsByInn(individual.getInn()) ||
-                repository.existsBySnils(individual.getSnils()));
+            individualModel = generate();
+        } while (repository.existsByInn(individualModel.getInn()) ||
+                repository.existsBySnils(individualModel.getSnils()));
 
-        return repository.save(individual);
+        return repository.save(individualModel);
     }
 
-    public Individual generate() {
-        Individual individual = new Individual();
-        individual.setFirstName(nameGenerator.generateFirstName());
-        individual.setLastName(nameGenerator.generateLastName());
-        individual.setMiddleName(nameGenerator.generateMiddleName());
-        individual.setBirthDate(dateGenerator.generateBirthDate(18, 70));
-        individual.setSnils(snilsGenerator.generate());
-        individual.setInn(innGenerator.generateForIndividual());
+    public IndividualModel generate() {
+        IndividualModel individualModel = new IndividualModel();
+        individualModel.setFirstName(individualNameGenerator.generateFirstName());
+        individualModel.setLastName(individualNameGenerator.generateLastName());
+        individualModel.setMiddleName(individualNameGenerator.generateMiddleName());
+        individualModel.setBirthDate(dateGenerator.generateBirthDate(18, 70));
+        individualModel.setSnils(snilsGenerator.generate());
+        individualModel.setInn(innGenerator.generateForIndividual());
 
-        return individual;
+        return individualModel;
     }
 }

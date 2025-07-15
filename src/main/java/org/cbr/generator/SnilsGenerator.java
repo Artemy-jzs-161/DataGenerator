@@ -6,35 +6,38 @@ import java.util.Random;
 
 @Component
 public class SnilsGenerator {
-    private final Random random = new Random();
+    private static final Random random = new Random();
 
-    public String generate() {
-        // Генерируем 9 случайных цифр
-        StringBuilder sb = new StringBuilder();
+    public static String generate() {
+        // Генерация первыех 9 цифр (случайные)
+        int[] digits = new int[9];
         for (int i = 0; i < 9; i++) {
-            sb.append(random.nextInt(10));
+            digits[i] = random.nextInt(10);
         }
 
-        String base = sb.toString();
-        int controlSum = calculateControlSum(base);
-
-        // Форматируем как СНИЛС: XXX-XXX-XXX YY
-        return String.format("%s-%s-%s %02d",
-                base.substring(0, 3),
-                base.substring(3, 6),
-                base.substring(6, 9),
-                controlSum);
-    }
-
-    private int calculateControlSum(String digits) {
+        // Вычисление контрольной суммы
         int sum = 0;
         for (int i = 0; i < 9; i++) {
-            int digit = Character.getNumericValue(digits.charAt(i));
-            sum += digit * (9 - i);
+            sum += digits[i] * (9 - i);
+        }
+        // Вычисляем контрольное число
+        int controlNumber;
+        if (sum < 100) {
+            controlNumber = sum;
+        } else if (sum == 100 || sum == 101) {
+            controlNumber = 0;
+        } else {
+            controlNumber = sum % 101;
+            if (controlNumber == 100) {
+                controlNumber = 0;
+            }
         }
 
-        if (sum < 100) return sum;
-        if (sum == 100 || sum == 101) return 0;
-        return sum % 101;
+        // Формат СНИЛСа в стандартный вид
+        return String.format("%03d-%03d-%03d %02d",
+                digits[0] * 100 + digits[1] * 10 + digits[2],
+                digits[3] * 100 + digits[4] * 10 + digits[5],
+                digits[6] * 100 + digits[7] * 10 + digits[8],
+                controlNumber);
     }
 }
