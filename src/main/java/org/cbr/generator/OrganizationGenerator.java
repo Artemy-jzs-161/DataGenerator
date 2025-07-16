@@ -24,6 +24,7 @@ public class OrganizationGenerator {
         OrganizationModel organizationModel = new OrganizationModel();
         organizationModel.setName(organizationNameGenerator.generateOrganizationName(forms));
         organizationModel.setInn(innGenerator.generateEntryInn());
+        organizationModel.setKpp(kppGenerator.generate());
 
         return organizationModel;
     }

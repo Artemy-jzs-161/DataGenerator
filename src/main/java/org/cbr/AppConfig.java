@@ -19,7 +19,9 @@ public class AppConfig {
             System.out.println("Генерация и сохранение данных...");
             for (int i = 0; i < 5; i++) {
                 IndividualModel person = generator.generateAndSave();
-                System.out.println("Сгенерирован: "
+                System.out.println(
+
+                        "Сгенерирован: "
                         + person.getLastName() + " "
                         + person.getFirstName());
             }
