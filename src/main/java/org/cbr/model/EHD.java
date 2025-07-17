@@ -1,4 +1,4 @@
-package org.cbr.oldfiles.models;
+package org.cbr.model;
 
 public record EHD() {
     static String nk;

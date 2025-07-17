@@ -1,5 +1,7 @@
 package org.cbr.generator;
 
+import org.cbr.generator.inn.InnGenerator;
+import org.cbr.generator.snils.SnilsGenerator;
 import org.cbr.model.IndividualModel;
 import org.cbr.repository.IndividualRepository;
 import org.springframework.stereotype.Component;

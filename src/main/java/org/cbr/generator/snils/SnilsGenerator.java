@@ -1,4 +1,4 @@
-package org.cbr.generator;
+package org.cbr.generator.snils;
 
 import org.springframework.stereotype.Component;
 

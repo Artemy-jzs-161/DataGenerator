@@ -1,35 +1,36 @@
-package org.cbr.oldfiles.generationsData.OGRN;
-/*
-import org.cbr.enums.*;
+package org.cbr.generator.ogrn;
 
-import java.time.Year;
-import java.util.*;
+import org.cbr.enums.OgrnType;
+import org.cbr.enums.RegistrationReason;
+import org.cbr.enums.TaxRegion;
+import org.springframework.stereotype.Component;
+
+import java.time.LocalDate;
+import java.util.Map;
+import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
-import static org.cbr.generationsData.OGRN.CalculateControlDigit.calculateControlDigit;
-import static org.cbr.generationsData.OGRN.GenerateRecordNumber.createRegionWeights;
-import static org.cbr.generationsData.OGRN.GenerateRecordNumber.generateRecordNumber;
+import static org.cbr.generator.ogrn.CalculateControlDigit.calculateControlDigit;
+import static org.cbr.generator.ogrn.GenerateRecordNumber.generateRecordNumber;
 
-public class OGRNGenerator {
+@Component
+public class OgrnGenerator {
     public static final Random RANDOM = ThreadLocalRandom.current();
-    private static final Map<String, Double> REGION_WEIGHTS = createRegionWeights();
 
-    private OGRNGenerator() {
-        // Запрет инстанса
+    // Запрет инстанса
+    public OgrnGenerator() {
     }
 
-    /**
-     * Генерация ОГРН с указанным типом причины регистрации
-     */
-/*
-    public static String generate(OgrnType type, RegistrationReason reason, RussianRegion region) {
+    private static String generate(OgrnType type,
+                                  TaxRegion region,
+                                  RegistrationReason reason) {
         StringBuilder builder = new StringBuilder(type.getLength());
 
         // Первая цифра (1 или 5 для ЮЛ, или 3 для ИП)
         builder.append(type == OgrnType.LEGAL_ENTITY ? (RANDOM.nextBoolean() ? '1' : '5') : '3');
 
         // Год регистрации (2 цифры) для новых регистраций последние 5 лет
-        int currentYear = Year.now().getValue() % 100;
+        int currentYear = LocalDate.now().getYear() % 100;
         int year = currentYear - RANDOM.nextInt(5);
         if (year < 0) year += 100;
         builder.append(String.format("%02d", year));
@@ -46,24 +47,21 @@ public class OGRNGenerator {
         return builder.toString();
     }
 
-    public static String generateLegalEntityOgrn() {
+    public String generateOrganizationOgrn() {
         return generate(
                 OgrnType.LEGAL_ENTITY,
-                RegistrationReason.REASON_01,
-                RussianRegion.getRandomWeighted());
+                TaxRegion.getRandomWeighted(),
+                RegistrationReason.REASON_01);
     }
 
-    public static String generateEntrepreneurOgrn() {
+    public String generateIpOgrn() {
         return generate(
                 OgrnType.INDIVIDUAL_ENTREPRENEUR,
-                RegistrationReason.REASON_05,
-                RussianRegion.getRandomWeighted());
+                TaxRegion.getRandomWeighted(),
+                RegistrationReason.REASON_05);
     }
 
-    /**
-     * Проверка валидности ОГРН
-     */
-/*
+    //Проверка валидности ОГРН
     public static boolean isValid(String ogrn) {
         if (!isValidFormat(ogrn)) {
             return false;
@@ -83,10 +81,6 @@ public class OGRNGenerator {
         return ogrn != null && (ogrn.matches("\\d{13}") || ogrn.matches("\\d{15}"));
     }
 
-    /**
-     * Определение типа ОГРН
-     */
-/*
     public static OgrnType detectType(String orgn) {
         if (!isValid(orgn)) {
             throw new IllegalArgumentException("Invalid orgn");
@@ -96,4 +90,3 @@ public class OGRNGenerator {
                 OgrnType.INDIVIDUAL_ENTREPRENEUR;
     }
 }
-*/

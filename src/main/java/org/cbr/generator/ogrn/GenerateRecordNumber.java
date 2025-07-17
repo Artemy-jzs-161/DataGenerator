@@ -1,19 +1,19 @@
-package org.cbr.oldfiles.generationsData.OGRN;
-/*
+package org.cbr.generator.ogrn;
+
 import org.cbr.enums.OgrnType;
 import org.cbr.enums.RegistrationReason;
-import org.cbr.enums.RussianRegion;
+import org.cbr.enums.TaxRegion;
 
 import java.util.Arrays;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import static org.cbr.generationsData.OGRN.OGRNGenerator.RANDOM;
+import static org.cbr.generator.ogrn.OgrnGenerator.*;
 
 public class GenerateRecordNumber {
     public static String generateRecordNumber(OgrnType type,
-                                               RegistrationReason reason,
-                                               RussianRegion region) {
+                                              RegistrationReason reason,
+                                              TaxRegion region) {
         int baseNumber = switch (reason) {
             case REASON_31, REASON_32 -> 300_000 + RANDOM.nextInt(200_000);
             case REASON_51 -> 500_000 + RANDOM.nextInt(200_000);
@@ -31,10 +31,9 @@ public class GenerateRecordNumber {
     }
 
     static Map<String, Double> createRegionWeights() {
-        return Arrays.stream(RussianRegion.values())
+        return Arrays.stream(TaxRegion.values())
                 .collect(Collectors
-                        .toMap(RussianRegion::getCode,
-                                RussianRegion::getWeight));
+                        .toMap(TaxRegion::getCode,
+                                TaxRegion::getWeight));
     }
 }
-*/

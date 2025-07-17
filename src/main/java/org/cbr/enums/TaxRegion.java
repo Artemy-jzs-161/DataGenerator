@@ -1,5 +1,7 @@
 package org.cbr.enums;
 
+import java.util.Arrays;
+
 public enum TaxRegion {
     REGION_01("01", "Республика Адыгея (Адыгея)"),
     REGION_02("02", "Республика Башкортостан"),
@@ -88,10 +90,23 @@ public enum TaxRegion {
 
     private final String code;
     private final String name;
+    private final double weight; // Вес для вероятностного распределения
 
-    TaxRegion(String code, String name) {
+
+    TaxRegion(String code, String name, double weight) {
         this.code = code;
         this.name = name;
+        this.weight = weight;
+    }
+
+    TaxRegion(String name, String code) {
+        this.name = name;
+        this.code = code;
+        this.weight = 1.0;
+    }
+
+    public double getWeight() {
+        return weight;
     }
 
     public String getCode() {
@@ -107,6 +122,24 @@ public enum TaxRegion {
             if (region.code.equals(code)) {
                 return region;
             }
-        }return null;
+        } return null;
+    }
+
+    // Метод для получения регионов с учетом весов
+    public static TaxRegion getRandomWeighted() {
+        double totalWeight = Arrays.stream(values())
+                .mapToDouble(TaxRegion::getWeight)
+                .sum();
+
+        double random = Math.random() * totalWeight;
+        double cumulativeWeight = 0.0;
+
+        for (TaxRegion region : values()) {
+            cumulativeWeight += region.getWeight();
+            if (random <= cumulativeWeight) {
+                return region;
+            }
+        }
+        return REGION_77; // fallback
     }
 }

@@ -1,4 +1,4 @@
-package org.cbr.oldfiles.models;
+package org.cbr.model;
 
 /**
  * @num - номер п.п. ключа.

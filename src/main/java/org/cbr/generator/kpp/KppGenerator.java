@@ -1,4 +1,4 @@
-package org.cbr.generator;
+package org.cbr.generator.kpp;
 
 import org.cbr.enums.RegistrationReason;
 import org.cbr.enums.TaxRegion;

@@ -1,4 +1,4 @@
-package org.cbr.generator;
+package org.cbr.generator.inn;
 
 import org.springframework.stereotype.Component;
 
@@ -34,7 +34,7 @@ public class InnGenerator {
     /**
      * Генерация ИНН для юридического лица (10 цифр)
      */
-    public static String generateEntryInn() {
+    public String generateEntryInn() {
         //Генерация первых 9 цифр
         int[] digits = new int[10];
         for (int i = 0; i < 9; i++) {

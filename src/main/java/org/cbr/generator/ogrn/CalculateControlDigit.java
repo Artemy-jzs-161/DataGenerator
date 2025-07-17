@@ -1,4 +1,4 @@
-package org.cbr.oldfiles.generationsData.OGRN;
+package org.cbr.generator.ogrn;
 
 public class CalculateControlDigit {
     public static char calculateControlDigit(String base) {
