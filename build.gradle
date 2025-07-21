@@ -1,12 +1,12 @@
 plugins {
-    id 'java'
-    id 'application'
     id 'org.springframework.boot' version '3.2.0'
-    id 'io.spring.dependency-management' version '1.1.4'
+    id 'io.spring.dependency-management' version '1.1.3'
+    id 'java'
 }
 
-group = 'org.cbr'
-version = '1.0-SNAPSHOT'
+group = 'ru.temaborovik'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '17'
 
 java {
     sourceCompatibility = JavaVersion.VERSION_17
@@ -18,32 +18,17 @@ repositories {
 }
 
 dependencies {
-    // Spring Boot Starter (для упрощения конфигурации)
-    // Spring Boot Starter Data JPA
-    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.2.0'
+    implementation 'org.postgresql:postgresql'
+    implementation 'org.projectlombok:lombok'
+    implementation 'org.springdoc:springdoc-openapi-ui:1.7.0'
+
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
-
-    // PostgreSQL драйвер
-    runtimeOnly 'org.postgresql:postgresql'
-    // Lombok для сокращения кода
-    compileOnly 'org.projectlombok:lombok:1.18.30'
-    annotationProcessor 'org.projectlombok:lombok:1.18.30'
-
-    // Для тестов
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.0'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.9.0'
-
-    implementation 'javax.xml.bind:jaxb-api:2.3.1'
-    implementation 'org.glassfish.jaxb:jaxb-runtime:2.3.1'
-    implementation 'javax.activation:activation:1.1.1'
-
-    // swagger
-    implementation 'org.springdoc:springdoc-openapi-ui:1.6.14'
-}
-
-application {
-    mainClass = 'com.example.AppConfig'
 }
 
 test {

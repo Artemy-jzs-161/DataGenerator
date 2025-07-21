@@ -1,0 +1,13 @@
+приложение по генерации данных клиентов (java, postgres spring gradle)
+генерируются для физ лиц id/firstName/lastName/middleName/birthDate/snils/inn/createdAt
+для юл лиц id/name/inn/kpp/orgn/createdAt
+пакеты:
+controller
+enums
+generator
+model
+repository
+appconfig.java
+
+помоги мне улучшить приложение и доработать его. сейчас реализованна только минимальная функциональность.
+давай я тебе буду скидывать необходимые пакеты а ты предлагать улучшения. Скажи с чего начнём?
