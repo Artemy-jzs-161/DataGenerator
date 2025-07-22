@@ -4,14 +4,14 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
+@Table(name = "registration_reason")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "regions")
-public class Region {
+public class RegistrationReason {
     @Id
     private String code;
 
     @Column(nullable = false)
-    private String name;
+    private String description;
 }

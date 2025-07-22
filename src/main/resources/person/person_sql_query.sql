@@ -38,24 +38,15 @@ INSERT INTO patronymics (name) VALUES
                                    ('Иванович'),
                                    ('Петрович');
 
---
-CREATE TABLE IF NOT EXISTS regions (
-                                       code VARCHAR(2) PRIMARY KEY,
-                                       name VARCHAR(255) NOT NULL
-);
 -- Таблица регионов
-CREATE TABLE IF NOT EXISTS regions (
-                                       code VARCHAR(2) PRIMARY KEY,
-                                       name VARCHAR(255) NOT NULL
-);
+CREATE TABLE IF NOT EXISTS regions (code VARCHAR(2) PRIMARY KEY,
+                                    name VARCHAR(255) NOT NULL);
 
 -- Таблица сгенерированных физ лиц
-CREATE TABLE persons (
-                         id SERIAL PRIMARY KEY,
-                         first_name VARCHAR(100),
-                         middle_name VARCHAR(100),
-                         last_name VARCHAR(100),
-                         snils VARCHAR(20),
-                         inn VARCHAR(20),
-                         passport VARCHAR(20)
-);
+CREATE TABLE persons (id SERIAL PRIMARY KEY,
+                      first_name VARCHAR(100),
+                      middle_name VARCHAR(100),
+                      last_name VARCHAR(100),
+                      snils VARCHAR(20),
+                      inn VARCHAR(20),
+                      passport VARCHAR(20));
