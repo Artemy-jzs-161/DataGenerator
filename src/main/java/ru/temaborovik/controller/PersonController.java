@@ -5,7 +5,10 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 import ru.temaborovik.dto.*;
 import ru.temaborovik.dto.GeneratePersonListRequest;
 import ru.temaborovik.dto.PersonDto;
@@ -66,6 +69,33 @@ public class PersonController {
         validateCount(request.getCount());
         log.info("Генерация списка людей с регионом {}, count={}, save={}", request.getRegionCode(), request.getCount(), request.isSave());
         return personService.generatePersonsWithRegion(request.getRegionCode(), request.getCount(), request.isSave());
+    }
+
+    @Operation(summary = "Получить пользователя по ID")
+    @GetMapping("/{id}")
+    public PersonDto getById(@PathVariable Long id) {
+        return personService.getById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Пользователь не найден"));
+    }
+
+    @Operation(summary = "Получить всех пользователей")
+    @GetMapping
+    public List<PersonDto> getAll() {
+        return personService.getAll();
+    }
+
+    @Operation(summary = "Удалить пользователя по ID")
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteById(@PathVariable Long id) {
+        personService.deleteById(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @Operation(summary = "Удалить всех пользователей")
+    @DeleteMapping
+    public ResponseEntity<Void> deleteAll() {
+        personService.deleteAll();
+        return ResponseEntity.noContent().build();
     }
 
     private void validateCount(int count) {

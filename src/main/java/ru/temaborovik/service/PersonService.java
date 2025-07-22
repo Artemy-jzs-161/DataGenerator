@@ -8,6 +8,7 @@ import ru.temaborovik.model.*;
 import ru.temaborovik.repository.PersonRepository;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -20,6 +21,25 @@ public class PersonService {
     private final InnGenerator innGenerator;
     private final PassportGenerator passportGenerator;
     private final PersonRepository personRepository;
+
+    public Optional<PersonDto> getById(Long id) {
+        return personRepository.findById(id).map(this::mapToDto);
+    }
+
+    public List<PersonDto> getAll() {
+        return personRepository.findAll()
+                .stream()
+                .map(this::mapToDto)
+                .collect(Collectors.toList());
+    }
+
+    public void deleteById(Long id) {
+        personRepository.deleteById(id);
+    }
+
+    public void deleteAll() {
+        personRepository.deleteAll();
+    }
 
     public PersonDto generateRandomPerson(boolean save) {
         return generateRandomPersonInternal(save);
@@ -78,7 +98,7 @@ public class PersonService {
     }
 
     /**
-     * Маппинг DTO → Entity для сохранения
+     * При сохранении в БД
      */
     private PersonEntity mapToEntity(PersonDto dto) {
         return PersonEntity.builder()
@@ -88,6 +108,20 @@ public class PersonService {
                 .snils(dto.getSnils())
                 .inn(dto.getInn())
                 .passport(dto.getPassport())
+                .build();
+    }
+
+    /**
+     * При сохранении в БД
+     */
+    private PersonDto mapToDto(PersonEntity entity) {
+        return PersonDto.builder()
+                .firstName(entity.getFirstName())
+                .lastName(entity.getLastName())
+                .middleName(entity.getMiddleName())
+                .snils(entity.getSnils())
+                .inn(entity.getInn())
+                .passport(entity.getPassport())
                 .build();
     }
 }
