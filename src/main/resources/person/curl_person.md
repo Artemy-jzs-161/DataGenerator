@@ -34,7 +34,6 @@ curl -X POST http://localhost:8080/api/person/random/list \
 -d '{"count":3,"save":false}'
 ```
 
-
 **Получить по ID:**
 ```bash
 curl -X GET http://localhost:8080/api/person/1
