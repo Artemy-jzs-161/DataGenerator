@@ -2,7 +2,7 @@ package ru.temaborovik.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import ru.temaborovik.model.Region;
+import ru.temaborovik.entity.Region;
 
 public interface RegionRepository extends JpaRepository<Region, String> {
 

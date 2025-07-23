@@ -7,8 +7,11 @@ CREATE TABLE IF NOT EXISTS stems_names (id   SERIAL PRIMARY KEY,
 CREATE TABLE IF NOT EXISTS suffix_names (id   SERIAL PRIMARY KEY,
                                          name VARCHAR(100) NOT NULL);
 
-CREATE TABLE IF NOT EXISTS organization_names (id SERIAL PRIMARY KEY,
-                                               name VARCHAR(255) NOT NULL UNIQUE);
+CREATE TABLE IF NOT EXISTS organization (id SERIAL PRIMARY KEY,
+                                         name VARCHAR(255) NOT NULL UNIQUE,
+                                         kpp VARCHAR(255),
+                                         snils VARCHAR(255)
+);
 
 CREATE TABLE IF NOT EXISTS registration_reason (code VARCHAR(2) PRIMARY KEY,        -- например, '01'
                                                 description VARCHAR(1000) NOT NULL); -- например, 'Основной по месту регистрации'
